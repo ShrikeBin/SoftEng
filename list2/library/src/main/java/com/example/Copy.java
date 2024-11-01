@@ -2,16 +2,15 @@ package com.example;
 
 public class Copy 
 {
-    private IdManager manager; //to be remade
+    private static unsigned copyNextID = 1;
     private int copyId;
     private boolean isAvailable;
     private Book book;
 
-    public Copy(Book book, IdManager manager) 
+    public Copy(Book book) 
     {
-        this.manager = manager;
-        this.copyId = manager.getCopyId();
-        manager.addCopyId();
+        this.copyId = copyNextID;
+        copyNextID++;
         this.book = book;
         this.isAvailable = true;
     }

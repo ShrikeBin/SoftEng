@@ -2,7 +2,8 @@ package com.example;
 
 import java.util.Scanner;
 
-public class Main {
+public class Main 
+{
     public static void main(String[] args) 
     {
         Library library = new Library();
@@ -15,9 +16,10 @@ public class Main {
                 System.out.println("2. Add Copy");
                 System.out.println("3. Add Reader");
                 System.out.println("4. Lend Book");
-                System.out.println("5. Display Books");
-                System.out.println("6. Display Copies");
-                System.out.println("7. Display Readers");
+                System.out.println("5. Return Book");
+                System.out.println("6. Display Loans");
+                System.out.println("7. Display Copies");
+                System.out.println("8. Display Readers");
                 System.out.println("0. Exit");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -33,7 +35,7 @@ public class Main {
                         break;
                     case 2:
                         System.out.print("Enter book title for adding a copy: ");
-                        title = scanner.nextLine();
+                        String title = scanner.nextLine();
                         library.addCopy(title);
                         break;
                     case 3:
@@ -49,12 +51,16 @@ public class Main {
                         library.lendBook(copyId, readerId);
                         break;
                     case 5:
-                        library.displayBooks();
-                        break;
+                        System.out.print("Enter copy ID: ");
+                        int copyId = scanner.nextInt();
+                        library.returnBook(copyId);
                     case 6:
-                        library.displayCopies();
+                        library.displayLoans();
                         break;
                     case 7:
+                        library.displayCopies();
+                        break;
+                    case 8:
                         library.displayReaders();
                         break;
                     case 0:

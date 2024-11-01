@@ -52,6 +52,22 @@ public class Library
         }
     }
 
+    public void returnBook(int copyId)
+    {
+        for(Loan loan in loans)
+        {
+            if(loan.isActive())
+            {
+                if(loan.getCopy.getCopyId() == copyId)
+                {
+                    loan.retrunCopy();
+                    break
+                }
+            }
+        }
+        System.out.println("Return failed, no such copy has ben lend")
+    }
+
     private Copy findCopyById(int copyId) // to be fixed
     {
         for (Copy copy : copies) 
@@ -76,12 +92,12 @@ public class Library
         return null;
     }
 
-    public void displayBooks() 
+    public void displayLoan() 
     {
-        System.out.println("Books in library:");
-        for (Book book : books) 
+        System.out.println("Loan:");
+        for (Loan loan : loans) 
         {
-            System.out.println(book);
+            System.out.println(loan);
         }
     }
 

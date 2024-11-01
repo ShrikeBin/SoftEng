@@ -7,6 +7,7 @@ public class Loan
     private Copy copy;
     private Reader reader;
     private LocalDate loanDate;
+    private boolean isActive = false;
 
     public Loan(Copy copy, Reader reader) 
     {
@@ -14,6 +15,7 @@ public class Loan
         this.reader = reader;
         this.loanDate = LocalDate.now();
         copy.setAvailable(false);
+        isActive = true;
     }
 
     public Copy getCopy() 
@@ -29,6 +31,16 @@ public class Loan
     public LocalDate getLoanDate() 
     {
         return loanDate;
+    }
+
+    public boolean isActive()
+    {
+        return isActive;
+    }
+    
+    public retrunCopy()
+    {
+        isActive = false;
     }
 
     @Override
