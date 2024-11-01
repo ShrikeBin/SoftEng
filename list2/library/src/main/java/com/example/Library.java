@@ -23,9 +23,7 @@ public class Library
         {
             if (book.getTitle().equals(title)) 
             {
-                Copy copy = new Copy(book);
-                copies.add(copy);
-                System.out.println("Added copy: " + copy);
+                copies.add(new Copy(book));
                 return;
             }
         }
@@ -34,9 +32,7 @@ public class Library
 
     public void addReader(String name) 
     {
-        Reader reader = new Reader(name);
-        readers.add(reader);
-        System.out.println("Added reader: " + reader);
+        readers.add(new Reader(name));
     }
 
     public void lendBook(int copyId, int readerId) //to be fixed

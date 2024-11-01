@@ -2,14 +2,16 @@ package com.example;
 
 public class Reader 
 {
+    private IdManager manager;
     private String name;
     private int readerId;
-    private static int idCounter = 1;
+    private static int idCounter = 1;// add class counter to mange ID's
 
-    public Reader(String name) 
+    public Reader(String name, IdManager manager) 
     {
         this.name = name;
-        this.readerId = idCounter++;
+        this.readerId = manager.getReaderId();
+        manager.addReaderId();
     }
 
     public String getName() 
