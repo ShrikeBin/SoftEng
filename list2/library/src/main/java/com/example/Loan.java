@@ -38,7 +38,7 @@ public class Loan
         return isActive;
     }
     
-    public retrunCopy()
+    public void returnCopy()
     {
         isActive = false;
     }

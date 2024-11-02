@@ -2,11 +2,11 @@ package com.example;
 
 public class Reader 
 {
-    private static unsigned readerNextID = 1;
+    private static int readerNextID = 1;
     private String name;
     private int readerId;
 
-    public Reader(String name, IdManager manager) 
+    public Reader(String name) 
     {
         this.name = name;
         this.readerId = readerNextID;

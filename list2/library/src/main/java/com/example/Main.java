@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main 
 {
-    public static void main(String[] args) 
+    public static void main(String[] args) //change to be more flexible, add all functionalities
     {
-        Library library = new Library();
+        DataManager library = new Library();
 
         try (Scanner scanner = new Scanner(System.in)) 
         {
@@ -35,8 +35,10 @@ public class Main
                         break;
                     case 2:
                         System.out.print("Enter book title for adding a copy: ");
-                        String title = scanner.nextLine();
-                        library.addCopy(title);
+                        title = scanner.nextLine();
+                        System.out.print("Enter author: ");
+                        author = scanner.nextLine();
+                        library.addCopy(title, author);
                         break;
                     case 3:
                         System.out.print("Enter reader name: ");
@@ -52,7 +54,7 @@ public class Main
                         break;
                     case 5:
                         System.out.print("Enter copy ID: ");
-                        int copyId = scanner.nextInt();
+                        copyId = scanner.nextInt();
                         library.returnBook(copyId);
                     case 6:
                         library.displayLoans();

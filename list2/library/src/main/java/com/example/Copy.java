@@ -2,7 +2,7 @@ package com.example;
 
 public class Copy 
 {
-    private static unsigned copyNextID = 1;
+    private static int copyNextID = 1;
     private int copyId;
     private boolean isAvailable;
     private Book book;
