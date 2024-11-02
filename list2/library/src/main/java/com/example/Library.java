@@ -11,14 +11,14 @@ public class Library implements DataManager
     private List<Reader> readers = new ArrayList<>();
     private List<Loan> loans = new ArrayList<>();
 
-    public void addBook(String title, String author) 
+    public void addBook(final String title, final String author) 
     {
         Book book = new Book(title, author);
         books.add(book);
         System.out.println("Added book: " + book);
     }
 
-    public void addCopy(String title, String author) 
+    public void addCopy(final String title, final String author) 
     {
         for (Book book : books) 
         {
@@ -31,7 +31,7 @@ public class Library implements DataManager
         System.out.println("Book not found. Add the book first.");
     }
 
-    public void addReader(String name) 
+    public void addReader(final String name) 
     {
         readers.add(new Reader(name));
     }
