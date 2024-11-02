@@ -20,7 +20,7 @@ public class Main
                 System.out.println("6. Display Loans");
                 System.out.println("7. Display Copies");
                 System.out.println("8. Display Readers");
-                System.out.println("0. Exit");
+                System.out.println("0. Exit\n");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 

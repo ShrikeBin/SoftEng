@@ -6,6 +6,23 @@
   <artifactId>book-rental</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <properties>
+    <!-- Define the main class for easier reference -->
+    <exec.mainClass>com.example.Main</exec.mainClass> <!-- Use the package name if applicable, e.g., com.example.Main -->
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <!-- JUnit 5 Dependency -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.9.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <!-- PMD Plugin -->
@@ -26,6 +43,23 @@
         <configuration>
           <failOnViolation>true</failOnViolation>
         </configuration>
+      </plugin>
+
+      <!-- Maven Exec Plugin for running the application -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <mainClass>${exec.mainClass}</mainClass>
+        </configuration>
+      </plugin>
+
+      <!-- Maven Surefire Plugin for Test Execution -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
       </plugin>
     </plugins>
   </build>
