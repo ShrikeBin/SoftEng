@@ -46,6 +46,6 @@ public class Loan
     @Override
     public String toString() 
     {
-        return "Loan: " + copy.toString() + " to " + reader.toString() + " on " + loanDate;
+        return "Loan: " + copy.toString() + " to " + reader.toString() + " on " + loanDate + " is active: " + isActive();
     }
 }

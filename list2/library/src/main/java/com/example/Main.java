@@ -4,74 +4,168 @@ import java.util.Scanner;
 
 public class Main 
 {
-    public static void main(String[] args) //change to be more flexible, add all functionalities
+    public static void main(String[] args)
     {
         DataManager library = new Library();
+        CLI cli = new CLI();
 
-        try (Scanner scanner = new Scanner(System.in)) 
+        try (Scanner scanner = new Scanner(System.in))
         {
-            while (true) 
+            cli.addCommand("1", new Executable() 
             {
-                System.out.println("\n1. Add Book");
-                System.out.println("2. Add Copy");
-                System.out.println("3. Add Reader");
-                System.out.println("4. Lend Book");
-                System.out.println("5. Return Book");
-                System.out.println("6. Display Loans");
-                System.out.println("7. Display Copies");
-                System.out.println("8. Display Readers");
-                System.out.println("0. Exit\n");
-                int choice = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (choice) 
+                @Override
+                public void run() 
                 {
-                    case 1:
-                        System.out.print("Enter book title: ");
-                        String title = scanner.nextLine();
-                        System.out.print("Enter author: ");
-                        String author = scanner.nextLine();
-                        library.addBook(title, author);
-                        break;
-                    case 2:
-                        System.out.print("Enter book title for adding a copy: ");
-                        title = scanner.nextLine();
-                        System.out.print("Enter author: ");
-                        author = scanner.nextLine();
-                        library.addCopy(title, author);
-                        break;
-                    case 3:
-                        System.out.print("Enter reader name: ");
-                        String readerName = scanner.nextLine();
-                        library.addReader(readerName);
-                        break;
-                    case 4:
-                        System.out.print("Enter copy ID: ");
-                        int copyId = scanner.nextInt();
-                        System.out.print("Enter reader ID: ");
-                        int readerId = scanner.nextInt();
-                        library.lendBook(copyId, readerId);
-                        break;
-                    case 5:
-                        System.out.print("Enter copy ID: ");
-                        copyId = scanner.nextInt();
-                        library.returnBook(copyId);
-                    case 6:
-                        library.displayLoans();
-                        break;
-                    case 7:
-                        library.displayCopies();
-                        break;
-                    case 8:
-                        library.displayReaders();
-                        break;
-                    case 0:
-                        System.out.println("Exiting...");
-                        return;
-                    default:
-                        System.out.println("Invalid choice.");
+                    System.out.print("Enter book title: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter author: ");
+                    String author = scanner.nextLine();
+                    library.addBook(title, author);
                 }
-            }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Adds a new book";
+                }
+            });
+        
+            cli.addCommand("2", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    System.out.print("Enter book title for adding a copy: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter author: ");
+                    String author = scanner.nextLine();
+                    library.addCopy(title, author);
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Adds a copy of an existing book";
+                }
+            });
+        
+            cli.addCommand("3", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    System.out.print("Enter reader name: ");
+                    String readerName = scanner.nextLine();
+                    library.addReader(readerName);
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Adds a new reader to the library";
+                }
+            });
+        
+            cli.addCommand("4", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    System.out.print("Enter copy ID: ");
+                    int copyId = scanner.nextInt();
+                    System.out.print("Enter reader ID: ");
+                    int readerId = scanner.nextInt();
+                    scanner.nextLine(); // consume the newline
+                    library.lendBook(copyId, readerId);
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Lends a book copy to a reader";
+                }
+            });
+        
+            cli.addCommand("5", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    System.out.print("Enter copy ID: ");
+                    int copyId = scanner.nextInt();
+                    scanner.nextLine(); // consume the newline
+                    library.returnBook(copyId);
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Returns a borrowed book copy";
+                }
+            });
+        
+            cli.addCommand("6", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    library.displayLoans();
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Displays all active loans";
+                }
+            });
+        
+            cli.addCommand("7", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    library.displayCopies();
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Displays all copies of books in the library";
+                }
+            });
+        
+            cli.addCommand("8", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    library.displayReaders();
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Displays all registered readers";
+                }
+            });
+        
+            cli.addCommand("0", new Executable() 
+            {
+                @Override
+                public void run() 
+                {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+        
+                @Override
+                public String getDescription() 
+                {
+                    return "Exits the application";
+                }
+            });
+        
+            cli.run(scanner);
         }
     }
 }

@@ -222,7 +222,7 @@ public class Library implements DataManager
 
     public void displayLoans() 
     {
-        System.out.println("Loan:");
+        System.out.println("Loans: \n");
         for (Loan loan : loans) 
         {
             System.out.println(loan);
