@@ -6,10 +6,10 @@ import java.util.Iterator;
 
 public class Library implements DataManager
 {
-    private List<Book> books = new ArrayList<>();
-    private List<Copy> copies = new ArrayList<>();
-    private List<Reader> readers = new ArrayList<>();
-    private List<Loan> loans = new ArrayList<>();
+    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Copy> copies = new ArrayList<>();
+    private ArrayList<Reader> readers = new ArrayList<>();
+    private ArrayList<Loan> loans = new ArrayList<>();
 
     public void addBook(final String title, final String author) 
     {
@@ -245,5 +245,20 @@ public class Library implements DataManager
         {
             System.out.println(reader);
         }
+    }
+
+    public List<Book> getBooks() 
+    {
+        return books;
+    }
+
+    public List<Copy> getCopies() 
+    {
+        return copies;
+    }
+
+    public List<Loan> getLoans() 
+    {
+        return loans;
     }
 }

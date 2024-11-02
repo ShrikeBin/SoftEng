@@ -1,0 +1,36 @@
+@startuml class
+class Library 
+{
+    +addBook(title: String, author: String)
+    +addCopy(title: String, author: String)
+    +rmBook(title: String, author: String)
+    +lendBook(copyId: int, readerId: int)
+    +returnBook(loanId: int)
+}
+
+class Book {
+    +title: String
+    +author: String
+}
+
+class Copy {
+    +id: int
+    +book: Book
+}
+
+class Loan {
+    +id: int
+    +copy: Copy
+    +reader: Reader
+    +isActive(): boolean
+}
+
+class Reader {
+    +name: String
+}
+
+Library --> Book
+Library --> Copy
+Library --> Loan
+Library --> Reader
+@enduml

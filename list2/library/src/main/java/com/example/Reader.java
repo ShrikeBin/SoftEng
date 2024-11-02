@@ -26,6 +26,9 @@ public class Reader
     @Override
     public String toString() 
     {
-        return "Reader " + readerId + ": " + name;
+        return "Reader{" +
+                "name='" + name + '\'' +
+                ", readerId=" + readerId +
+                '}';
     }
 }
