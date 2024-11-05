@@ -1,9 +1,26 @@
 @startuml class
+
+class CLI
+{
+    +commands: HashMap<String, Executable>
+
+    +addCommand(name: string, exec: executable)
+    +run(scanner: scanner)
+}
+
 class Library 
 {
+    +books: ArrayList<Book>();
+    +copies: ArrayList<Copy>();
+    +readers: ArrayList<Reader>();
+    +loans: ArrayList<Loan>();
+
     +addBook(title: String, author: String)
     +addCopy(title: String, author: String)
+    +addReader(name: Name)
     +rmBook(title: String, author: String)
+    +rmCopy(int: copyId)
+    +rmReader(int: readerId)
     +lendBook(copyId: int, readerId: int)
     +returnBook(loanId: int)
 }
@@ -29,6 +46,7 @@ class Reader {
     +name: String
 }
 
+CLI --> Library
 Library --> Book
 Library --> Copy
 Library --> Loan
