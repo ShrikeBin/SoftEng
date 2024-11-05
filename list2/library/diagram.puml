@@ -8,7 +8,12 @@ class CLI
     +run(scanner: scanner)
 }
 
-class Executable (implements Runnable)
+interface Runnable 
+{
+    +run()
+}
+
+class Executable implements Runnable 
 {
     +run()
     +getDescription(): String
@@ -67,6 +72,7 @@ class Reader
     +id: int
     +name: String
 }
+Runnable --> Executable
 Executable --> CLI
 DataManager --> Library
 CLI --> Library
