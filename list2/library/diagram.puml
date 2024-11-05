@@ -8,6 +8,24 @@ class CLI
     +run(scanner: scanner)
 }
 
+class Executable (implements Runnable)
+{
+    +run()
+    +getDescription(): String
+}
+
+class DataManager
+{
+    +addBook(title: String, author: String)
+    +addCopy(title: String, author: String)
+    +addReader(name: Name)
+    +rmBook(title: String, author: String)
+    +rmCopy(int: copyId)
+    +rmReader(int: readerId)
+    +lendBook(copyId: int, readerId: int)
+    +returnBook(loanId: int)
+}
+
 class Library 
 {
     +books: ArrayList<Book>
@@ -25,28 +43,32 @@ class Library
     +returnBook(loanId: int)
 }
 
-class Book {
+class Book 
+{
     +title: String
     +author: String
 }
 
-class Copy {
+class Copy 
+{
     +id: int
     +book: Book
 }
 
-class Loan {
-    +id: int
+class Loan 
+{
     +copy: Copy
     +reader: Reader
     +isActive(): boolean
 }
 
-class Reader {
+class Reader 
+{
     +id: int
     +name: String
 }
-
+Executable --> CLI
+DataManager --> Library
 CLI --> Library
 Library --> Book
 Library --> Copy
