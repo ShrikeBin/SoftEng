@@ -10,10 +10,10 @@ class CLI
 
 class Library 
 {
-    +books: ArrayList<Book>();
-    +copies: ArrayList<Copy>();
-    +readers: ArrayList<Reader>();
-    +loans: ArrayList<Loan>();
+    +books: ArrayList<Book>
+    +copies: ArrayList<Copy>
+    +readers: ArrayList<Reader>
+    +loans: ArrayList<Loan>
 
     +addBook(title: String, author: String)
     +addCopy(title: String, author: String)
@@ -43,6 +43,7 @@ class Loan {
 }
 
 class Reader {
+    +id: int
     +name: String
 }
 
