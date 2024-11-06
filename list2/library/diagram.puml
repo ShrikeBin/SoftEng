@@ -19,7 +19,7 @@ class Executable implements Runnable
     +getDescription(): String
 }
 
-class DataManager
+interface DataManager
 {
     +addBook(title: String, author: String)
     +addCopy(title: String, author: String)
@@ -31,7 +31,7 @@ class DataManager
     +returnBook(loanId: int)
 }
 
-class Library 
+class Library implements DataManager
 {
     +books: ArrayList<Book>
     +copies: ArrayList<Copy>
@@ -75,7 +75,7 @@ class Reader
 Runnable --> Executable
 Executable --> CLI
 DataManager --> Library
-CLI --> Library
+CLI --> DataManager
 Library --> Book
 Library --> Copy
 Library --> Loan
