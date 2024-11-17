@@ -15,6 +15,9 @@
  */
 package eu.jpereira.trainings.designpatterns.structural.facade.model;
 
+import eu.jpereira.trainings.designpatterns.structural.facade.service.OrderingService;
+import eu.jpereira.trainings.designpatterns.structural.facade.service.WharehouseService;
+
 /**
  * @author jpereira
  *

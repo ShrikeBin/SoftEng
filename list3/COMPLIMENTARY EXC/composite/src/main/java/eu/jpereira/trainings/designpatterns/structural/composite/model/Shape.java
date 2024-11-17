@@ -32,8 +32,8 @@ public abstract class Shape {
 	 *         otherwise
 	 */
 	public CompositeShape asComposite() {
-		//TODO: Implement
-		return null;
+		// Check if the current object is a CompositeShape
+		return this instanceof CompositeShape ? (CompositeShape) this : null;
 	}
 
 	/**
@@ -48,7 +48,12 @@ public abstract class Shape {
 		this.x += xIncrement;
 		this.y += yIncrement;
 		// if is composite, delegate to children
-		//TODO: COmplete
+		if (this instanceof CompositeShape) {
+			CompositeShape composite = (CompositeShape) this;
+			for (Shape child : composite.getShapes()) {
+				child.move(xIncrement, yIncrement);
+			}
+		}
 	}
 
 	/**

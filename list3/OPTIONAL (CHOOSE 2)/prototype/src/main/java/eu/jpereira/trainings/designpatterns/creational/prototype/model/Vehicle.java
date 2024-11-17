@@ -21,47 +21,53 @@ import java.util.List;
 import eu.jpereira.trainings.designpatterns.creational.prototype.VehiclePart;
 import eu.jpereira.trainings.designpatterns.creational.prototype.exception.VehicleDoesNotHavePartsException;
 
-/**
- * @author jpereira
- * 
- */
-public class Vehicle implements Cloneable {
+
+public class Vehicle implements Cloneable 
+{
 
 	private List<VehiclePart> parts;
 
-	/**
-	 * @param vehicleParts
-	 */
-	public void setParts(List<VehiclePart> vehicleParts) {
+	public Vehicle(List<VehiclePart> vehicleParts)
+	{
+		this.parts = vehicleParts;
+	}
+
+	public Vehicle()
+	{
+		this.parts = new ArrayList<VehiclePart>();
+	}
+
+	public void setParts(List<VehiclePart> vehicleParts) 
+	{
 		// copy the reference for a builded list of created parts
 		this.parts = vehicleParts;
 
 	}
 
-	/**
-	 * @return
-	 */
-	public Object countParts() throws VehicleDoesNotHavePartsException {
-		if (this.parts != null) {
+	public Object countParts() throws VehicleDoesNotHavePartsException 
+	{
+		if (this.parts != null) 
+		{
 			return this.parts.size();
-		} else {
-			 throw new VehicleDoesNotHavePartsException();
+		} 
+		else 
+		{
+			throw new VehicleDoesNotHavePartsException();
 		}
 
 	}
 
-	/**
-	 * @param class1
-	 * @return
-	 * @throws VehicleDoesNotHavePartsException 
-	 */
-	public List<VehiclePart> getParts(VehiclePartEnumeration type) throws VehicleDoesNotHavePartsException {
-		if (this.parts == null) {
+	public List<VehiclePart> getParts(VehiclePartEnumeration type) throws VehicleDoesNotHavePartsException 
+	{
+		if (this.parts == null) 
+		{
 			 throw new VehicleDoesNotHavePartsException();
 		}
 		List<VehiclePart> match = new ArrayList<VehiclePart>();
-		for (VehiclePart vehiclePart : this.parts ) {
-			if ( vehiclePart.is(type)) {
+		for (VehiclePart vehiclePart : this.parts ) 
+		{
+			if ( vehiclePart.is(type)) 
+			{
 				match.add(vehiclePart);
 			}
 		}
@@ -70,8 +76,18 @@ public class Vehicle implements Cloneable {
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
-		//TODO: Implement clone
-		return super.clone();
+		try
+		{
+			return new Vehicle(this.getParts(null));
+		}
+		catch (VehicleDoesNotHavePartsException e)
+		{
+			return new Vehicle();
+		}
+		finally
+		{
+			return new Vehicle();
+		}
 	}
 	
 	

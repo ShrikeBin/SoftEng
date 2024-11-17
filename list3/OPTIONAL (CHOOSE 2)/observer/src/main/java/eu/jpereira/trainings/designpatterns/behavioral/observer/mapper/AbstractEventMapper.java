@@ -27,7 +27,7 @@ import eu.jpereira.trainings.designpatterns.behavioral.observer.observers.Applia
  * 
  * TODO Exercise: Implement the methods from {@link ApplianceEventObservable} here in this class
  */ 
-public abstract class AbstractEventMapper implements EventMapper {
+public abstract class AbstractEventMapper implements EventMapper, ApplianceEventObservable {
 
 	private List<ApplianceEventObserver> observers;
 
@@ -41,6 +41,14 @@ public abstract class AbstractEventMapper implements EventMapper {
 		observers = new ArrayList<ApplianceEventObserver>();
 	}
 
-	
+	@Override
+	public void addObserver(ApplianceEventObserver observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void removeObserver(ApplianceEventObserver observer) {
+		observers.remove(observer);
+	}
 
 }

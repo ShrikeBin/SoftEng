@@ -15,90 +15,97 @@
  */
 package eu.jpereira.trainings.designpatterns.structural.composite.model;
 
+import eu.jpereira.trainings.designpatterns.structural.composite.model.Shape;
+import eu.jpereira.trainings.designpatterns.structural.composite.model.ShapeType;
+import eu.jpereira.trainings.designpatterns.structural.composite.model.ShapeDoesNotSupportChildren;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+// rwlodarczyk: create abstract class CompositeShape that extends Shape to use as a base for composite shapes
 
-/**
- * @author Joao Pereira
- * 
- */
 public abstract class CompositeShape extends Shape {
 
-	List<Shape> shapes;
+    List<Shape> shapes;
 
-	public CompositeShape() {
-		this.shapes = createShapesList();
-	}
+    public CompositeShape() {
+        this.shapes = createShapesList();
+    }
 
-	/**
-	 * Remove a shape from this shape childrens
-	 * 
-	 * @param shape
-	 *            the shape to remove
-	 * @return true if the shape was present and was removed, false if the shape
-	 *         was not present
-	 */
-	public boolean removeShape(Shape shape) {
-		// TODO: implement
-		return false;
+    /**
+     * Remove a shape from this shape's children.
+     * 
+     * @param shape the shape to remove
+     * @return true if the shape was present and was removed, false if the shape was not present
+     */
+    public boolean removeShape(Shape shape) {
+        return shapes.remove(shape);
+    }
 
-	}
+    /**
+     * Return the total shapes count in case this is a composite
+     * 
+     * @return the total count of shapes if the shape is composite. -1 otherwise
+     */
+    public int getShapeCount() {
+        return shapes.size();
+    }
 
-	/**
-	 * Return the total shapes count in case this is a composite
-	 * 
-	 * @return the total count of shapes if the shape is composite. -1 otherwise
-	 */
-	public int getShapeCount() {
-		// TODO: implement
-		return 0;
+    /**
+     * Add a shape to this composite shape.
+     * 
+     * @param shape the shape to add
+     */
+    public void addShape(Shape shape) {
+        if (this instanceof CompositeShape) {
+            shapes.add(shape);
+        }
+    }
 
-	}
+    public List<Shape> getShapes() {
+        return shapes;
+    }
 
-	/**
-	 * Add a shape to this shape.
-	 * 
-	 * @param shape
-	 *            The shape to add
-	 * @throws ShapeDoesNotSupportChildren
-	 *             if this shape is not a composite
-	 */
-	public void addShape(Shape shape) {
-		// TODO: Implement
-	}
+    /**
+     * Returns a list of shapes filtered by their type.
+     * 
+     * @param type the type of shape to filter
+     * @return a list of shapes that match the given type
+     */
+    public List<Shape> getShapesByType(ShapeType type) {
+        return shapes.stream()
+                .filter(shape -> shape.getType() == type)
+                .collect(Collectors.toList());
+    }
 
-	public List<Shape> getShapes() {
-		// TODO: Implement
-		return null;
+    /**
+     * Return all shapes that are leaves in the tree.
+     * 
+     * @return a list of leaf shapes
+     */
+    public List<Shape> getLeafShapes() {
+        return shapes.stream()
+                .filter(shape -> !(shape instanceof CompositeShape))
+                .collect(Collectors.toList());
+    }
 
-	}
+    /**
+     * Factory method for creating a list of child shapes. Can be overridden.
+     * 
+     * @return a new empty list of shapes
+     */
+    protected List<Shape> createShapesList() {
+        return new ArrayList<>();
+    }
 
-	/**
-	 * @param circle
-	 * @return
-	 */
-	public List<Shape> getShapesByType(ShapeType circle) {
-		return null;
-		// TODO: Implement
-	}
-
-	/**
-	 * Return all shapes that are leafs in the tree
-	 * 
-	 * @return
-	 */
-	public List<Shape> getLeafShapes() {
-		// TODO: Implement
-		return null;
-	}
-
-	/**
-	 * Factory method for the list of children of this shape
-	 * 
-	 * @return
-	 */
-	protected List<Shape> createShapesList() {
-		return null;
-		// TODO: Implement
-	}
+    /**
+     * If this object is a CompositeShape, return it. Null otherwise.
+     * 
+     * @return the composite shape instance if this is a composite, null otherwise
+     */
+    @Override
+    public CompositeShape asComposite() {
+        return this;
+    }
 }

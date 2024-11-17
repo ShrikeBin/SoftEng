@@ -15,6 +15,8 @@
  */
 package eu.jpereira.trainings.designpatterns.behavioral.observer.observers;
 
+import eu.jpereira.trainings.designpatterns.behavioral.observer.mapper.EventMapper;
+
 /**
  * @author windows
  * 

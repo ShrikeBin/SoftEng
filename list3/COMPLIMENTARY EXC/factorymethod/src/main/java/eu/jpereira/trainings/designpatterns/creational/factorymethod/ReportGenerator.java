@@ -15,36 +15,34 @@
  */
 package eu.jpereira.trainings.designpatterns.creational.factorymethod;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * The Report Generator will create reports based on a given type
+ * 
  * @author jpereira
  *
  */
 public class ReportGenerator {
+	private final Map<String, ReportFactory> factoryMap;
 
-	/**
-	 * Generate a new report.
-	 * @param data The report data
-	 * @param type the type of report
-	 * @return the generated report, or null of type is unknown
-	 */
+	public ReportGenerator() {
+		factoryMap = new HashMap<>();
+		factoryMap.put("JSON", new JSONReportFactory());
+		factoryMap.put("XML", new XMLReportFactory());
+		factoryMap.put("HTML", new HTMLReportFactory());
+		factoryMap.put("PDF", new PDFReportFactory());
+	}
+
 	public Report generateReport(ReportData data, String type) {
-
-		Report generatedReport = null;
-
-		if (type.equals("JSON")) {
-			generatedReport = new JSONReport();
-		} else if (type.equals("XML")) {
-			generatedReport = new XMLReport();
-		} else if (type.equals("HTML")) {
-			generatedReport = new HTMLReport();
-		} else if (type.equals("PDF")) {
-			generatedReport = new PDFReport();
-		}
-		if (generatedReport != null) {
-			generatedReport.generateReport(data);
+		ReportFactory factory = factoryMap.get(type);
+		if (factory == null) {
+			return null;
 		}
 
-		return generatedReport;
+		Report report = factory.createReport();
+		report.generateReport(data);
+		return report;
 	}
 }
