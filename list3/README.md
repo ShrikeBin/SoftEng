@@ -1,63 +1,59 @@
-# Design Patterns in Java
-
-This repository contains descriptions of various design patterns implemented in Java.
-
----
+#PATTERN DESING DESCRIPTION
 
 # Abstract Factory
-### Creates families of related objects without specifying their concrete classes.
+### Provides an interface for creating families of related or dependent objects without specifying their concrete classes. This promotes consistency among products in the same family and makes it easier to switch between different families.
 
 ---
 
 # Adapter
-### Allows incompatible interfaces to work together.
+### Acts as a bridge between two incompatible interfaces by converting the interface of one class into another that the client expects. It enables existing classes to work together without modifying their code.
 
 ---
 
 # Builder
-### Separates the construction of a complex object from its representation.
+### Constructs complex objects step-by-step, separating the construction process from its representation. It allows you to create different types of objects using the same construction process.
 
 ---
 
 # Composite
-### Composes objects into tree structures to represent part-whole hierarchies.
+### Composes objects into tree-like structures to represent part-whole hierarchies. It allows clients to treat individual objects and compositions of objects uniformly, making it easier to work with recursive structures.
 
 ---
 
 # Decorator
-### Adds responsibilities to objects dynamically.
+### Dynamically adds or modifies the behavior of objects by wrapping them in decorator classes. This avoids creating subclasses for every possible combination of behaviors.
 
 ---
 
 # Facade
-### Provides a simplified interface to a complex subsystem.
+### Provides a simplified interface to a complex subsystem by hiding the underlying complexity. It allows clients to interact with the system more easily and promotes loose coupling between subsystems.
 
 ---
 
 # Factory Method
-### Defines an interface for creating an object, but lets subclasses alter the type of objects.
+### Defines a method in a base class for creating objects but lets subclasses override the method to specify the type of objects that will be created. It helps adhere to the principle of programming to an interface rather than an implementation.
 
 ---
 
 # Singleton
-### Ensures only one instance of a class exists.
+### Ensures that a class has only one instance and provides a global point of access to it. This is useful for managing shared resources or global configurations.
 
 ---
 
 # State
-### Allows an object to alter its behavior when its internal state changes.
+### Allows an object to change its behavior when its internal state changes. It delegates state-specific behavior to different state classes, making the code easier to maintain and extend.
 
 ---
 
 # Mediator
-### Defines an object that controls how other objects interact.
+### Centralizes communication between objects in a system, ensuring that objects do not communicate directly with each other. This reduces dependencies and simplifies the system by promoting loose coupling.
 
 ---
 
 # Observer
-### Notifies multiple objects about state changes.
+### Defines a one-to-many dependency between objects, so that when one object (subject) changes state, all its dependent objects (observers) are notified and updated automatically. It’s often used to implement event systems.
 
 ---
 
 # Prototype
-### Creates duplicate objects while keeping performance in mind.
+### Creates new objects by copying existing ones rather than creating them from scratch. This is useful when object creation is expensive, and cloning is more efficient.
