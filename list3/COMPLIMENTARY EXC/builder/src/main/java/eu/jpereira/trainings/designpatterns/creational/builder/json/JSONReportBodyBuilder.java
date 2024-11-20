@@ -8,7 +8,7 @@ import eu.jpereira.trainings.designpatterns.creational.builder.ReportBodyBuilder
 
 import java.util.Iterator;
 
-// rwlodarczyk: create JSONReportBodyBuilder class
+// create JSONReportBodyBuilder class
 
 public class JSONReportBodyBuilder implements ReportBodyBuilder {
     private SaleEntry saleEntry;

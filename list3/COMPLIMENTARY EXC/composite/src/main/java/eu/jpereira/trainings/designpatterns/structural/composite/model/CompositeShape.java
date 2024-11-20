@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// rwlodarczyk: create abstract class CompositeShape that extends Shape to use as a base for composite shapes
+// create abstract class CompositeShape that extends Shape to use as a base for composite shapes
 
 public abstract class CompositeShape extends Shape {
 
