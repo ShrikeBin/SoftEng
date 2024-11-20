@@ -20,7 +20,7 @@ import eu.jpereira.trainings.designpatterns.creational.abstractfactory.JSONRepor
 import eu.jpereira.trainings.designpatterns.creational.abstractfactory.XMLReportFactory;
 
 
-// rwlodarczyk: Modified class to use abstract factory pattern
+// Modified class to use abstract factory pattern
 
 public class Report {
 
