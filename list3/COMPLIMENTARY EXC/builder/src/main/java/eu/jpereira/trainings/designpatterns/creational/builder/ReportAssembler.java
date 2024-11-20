@@ -7,7 +7,6 @@ import eu.jpereira.trainings.designpatterns.creational.builder.json.JSONReportBo
 import eu.jpereira.trainings.designpatterns.creational.builder.xml.XMLReportBodyBuilder;
 import eu.jpereira.trainings.designpatterns.creational.builder.html.HTMLReportBodyBuilder;
 
-// rwlodarczyk: modified the terrible code to feature builder pattern
 
 public class ReportAssembler {
 
