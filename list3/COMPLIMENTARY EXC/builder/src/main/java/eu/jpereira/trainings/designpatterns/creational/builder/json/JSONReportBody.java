@@ -38,7 +38,6 @@ public class JSONReportBody implements ReportBody{
 	 */
 	public void addContent(String content) {
 		stringBuilder.append(content);
-		
 	}
 	
 

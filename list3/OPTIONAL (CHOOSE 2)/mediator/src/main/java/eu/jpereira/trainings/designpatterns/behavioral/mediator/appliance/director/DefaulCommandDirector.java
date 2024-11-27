@@ -1,173 +1,188 @@
-/**
- * Copyright 2011 Joao Miguel Pereira
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package eu.jpereira.trainings.designpatterns.behavioral.mediator.appliance.director;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
 
 import eu.jpereira.trainings.designpatterns.behavioral.mediator.command.Command;
 import eu.jpereira.trainings.designpatterns.behavioral.mediator.command.CouldNotExecuteCommandException;
 import eu.jpereira.trainings.designpatterns.behavioral.mediator.command.CouldNotRollbackCommandException;
 import eu.jpereira.trainings.designpatterns.behavioral.mediator.command.UndoableCommand;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
 /**
- * A default implemenatation of a {@link CommandDirector}
- * @author jpereira
- *
- *
- *TODO: (DO IT LAST) Add method void addExceptionCommands(Class<? extends Throwable> exClass, Command...commands) to Interface {@link CommandDirector}
- *and implement it. It's a map of exception classes to a list of commands that should run whenever an exception of the type exClass is thrown.
- * Implement first a test for this method
- * 
- * 
- * TODO: Implement {@link CommandDirector}.
- * public class DefaultCommandDirector implements CommandDirector 
+ * A default implementation of a CommandDirector.
  */
+public class DefaulCommandDirector implements CommandDirector {
 
-public class DefaulCommandDirector {
+    // Fail Strategy. It will define how the Director will fail. Should it try to recover, ignore, fail-fast?
+    protected FailStategy failStrategy = null;
+    
+    // The commands to be executed by this director
+    protected List<Command> commands = null;
+    
+    // Stack maintaining the commands already executed. Used for rollback operations
+    private Stack<Command> executedCommands;
 
-	// Fail Strategy. It will define how the DirectorrWill fail. Should it try to recover, ignore, fail-fast? 
-	protected FailStategy failStrategy = null;
-	//The commands to be executed by this director
-	protected List<Command> commands = null;
-	//Stack maintaining the commands already executed. Used for rollback operations
-	private Stack<Command> executedCommands;
+    // Map to store exception types and their associated recovery commands
+    private Map<Class<? extends Throwable>, List<Command>> exceptionCommandsMap;
 
-	/**
-	 * Create new DefaultCommandDirector
-	 */
-	public DefaulCommandDirector() {
-		//Use DEFAULT. Will do a rollback after a first command execution failure
-		this.failStrategy = FailStategy.DEFAULT;
-		//Delegate instantiation to a factory method
-		this.commands = createCommands();
-		//Delegate instantiation to a factory method
-		this.executedCommands = createExecutedStack();
-	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eu.jpereira.trainings.designpatterns.behavioral.mediator.appliance.director
-	 * .CommandDirector#setFailStrategy(eu.jpereira.trainings.designpatterns.
-	 * behavioral.mediator.appliance.director.FailStategy)
-	 */
-	//TODO: Uncomment method and complete it
-	/*@Override
-	public void setFailStrategy(FailStategy strategy) {
-		//TODO: Set this strategy to param strategy
+    /**
+     * Create a new DefaultCommandDirector.
+     */
+    public DefaulCommandDirector() {
+        // Use DEFAULT. Will do a rollback after a first command execution failure
+        this.failStrategy = FailStategy.DEFAULT;
+        
+        // Delegate instantiation to a factory method
+        this.commands = createCommands();
+        
+        // Delegate instantiation to a factory method
+        this.executedCommands = createExecutedStack();
+        
+        // Initialize the exception commands map
+        this.exceptionCommandsMap = new HashMap<>();
+    }
 
-	}*/
+    /**
+     * Set the fail strategy for the command director.
+     * 
+     * @param strategy The fail strategy to be applied.
+     */
+    @Override
+    public void setFailStrategy(FailStategy strategy) {
+        this.failStrategy = strategy;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eu.jpereira.trainings.designpatterns.behavioral.mediator.appliance.director
-	 * .CommandDirector#run()
-	 */
-	//TODO: Uncomment method and complete
-	/*
-	@Override
-	public void run() throws ErrorDirectingCommandsException {
-		for (Command command : this.commands) {
+    /**
+     * Run all commands in the director.
+     * 
+     * @throws ErrorDirectingCommandsException if any command fails during execution.
+     */
+    @Override
+    public void run() throws ErrorDirectingCommandsException {
+        for (Command command : this.commands) {
+            try {
+                // Push the command to the stack of executed commands
+                executedCommands.push(command);
+                
+                // Execute the command
+                command.execute();
 
-			try {
-			    //Push the command to the stack of executed commands
-				executedCommands.push(command);
-				//TODO: Call command execute();
-				
-			} catch (CouldNotExecuteCommandException e) {
-				// Default strategy is to rollback
-				rollback();
-				// Log
-				e.printStackTrace();
-				// abstract
-				throw new ErrorDirectingCommandsException(e.fillInStackTrace());
+            } catch (CouldNotExecuteCommandException e) {
+                // Default strategy is to rollback
+                if (this.failStrategy == FailStategy.DEFAULT) {
+                    rollback();
+                }
 
-			}
-		}
+                // Log the exception (could also be replaced with logging framework)
+                e.printStackTrace();
 
-	}*/
+                // Attempt to handle the exception based on registered exception commands
+                handleException(e);
 
-	
+                // Throw an exception with the stack trace
+                throw new ErrorDirectingCommandsException(e.fillInStackTrace());
+            }
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eu.jpereira.trainings.designpatterns.behavioral.mediator.appliance.director
-	 * .
-	 * CommandDirector#addCommand(eu.jpereira.trainings.designpatterns.behavioral
-	 * .mediator.command.Command,
-	 * eu.jpereira.trainings.designpatterns.behavioral
-	 * .mediator.command.Command[])
-	 */
-	//TODO: Uncomment the following method and complet it
-	/*
-	@Override
-	public void addCommand(Command command, Command... commands) {
-		//TODO: Add the argument command to the list of commands to be executed by this CommandDirector
-		
-		//Add the Commands in the Arrsy of argument commands to the list of commands to execute
-		if (commands != null && commands.length > 0) {
-			this.commands.addAll(Arrays.asList(commands));
-		}
-	}*/
-	
-	/**
-	 * Rollback the command execution
-	 */
-	private void rollback() {
-		while (!executedCommands.isEmpty()) {
-			//Pop the last executed command....
-			Command rollBackcommand = executedCommands.pop();
-			if (rollBackcommand instanceof UndoableCommand) {
-				try {
-					//Rollback it
-					((UndoableCommand) rollBackcommand).rollback();
-				} catch (CouldNotRollbackCommandException e) {
-					// Ignore
-					e.printStackTrace();
-				}
+    /**
+     * Add a command or multiple commands to the list of commands to be executed.
+     * 
+     * @param command The command to add.
+     * @param commands Additional commands to add.
+     */
+    @Override
+    public void addCommand(Command command, Command... commands) {
+        // Add the initial command to the list
+        this.commands.add(command);
+        
+        // Add additional commands if provided
+        if (commands != null && commands.length > 0) {
+            this.commands.addAll(Arrays.asList(commands));
+        }
+    }
 
-			}
-		}
+    /**
+     * Rollback the command execution in reverse order.
+     */
+    private void rollback() {
+        while (!executedCommands.isEmpty()) {
+            // Pop the last executed command
+            Command rollBackCommand = executedCommands.pop();
+            
+            if (rollBackCommand instanceof UndoableCommand) {
+                try {
+                    // Rollback the command if it is undoable
+                    ((UndoableCommand) rollBackCommand).rollback();
+                } catch (CouldNotRollbackCommandException e) {
+                    // Ignore if rollback fails (can log it as needed)
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-	}
-	/**
-	 * Factory Method
-	 * 
-	 * @return
-	 */
-	protected Stack<Command> createExecutedStack() {
-		return new Stack<Command>();
-	}
+    /**
+     * Factory method to create the stack of executed commands.
+     * 
+     * @return A new Stack of commands.
+     */
+    protected Stack<Command> createExecutedStack() {
+        return new Stack<>();
+    }
 
-	/**
-	 * Factory method
-	 * 
-	 * @return
-	 */
-	protected List<Command> createCommands() {
-		return new ArrayList<Command>();
-	}
+    /**
+     * Factory method to create the list of commands.
+     * 
+     * @return A new list of commands.
+     */
+    protected List<Command> createCommands() {
+        return new ArrayList<>();
+    }
 
+    /**
+     * Add exception handling commands. This will allow associating specific commands to handle exceptions of a certain type.
+     * 
+     * @param exClass The exception class type.
+     * @param commands The commands to execute when this exception is thrown.
+     */
+    public void addExceptionCommands(Class<? extends Throwable> exClass, Command... commands) {
+        // If no commands are provided, do nothing
+        if (commands == null || commands.length == 0) {
+            return;
+        }
+        
+        // Add the list of commands for the specific exception class
+        List<Command> commandList = exceptionCommandsMap.getOrDefault(exClass, new ArrayList<>());
+        commandList.addAll(Arrays.asList(commands));
+        exceptionCommandsMap.put(exClass, commandList);
+    }
 
-
+    /**
+     * Handle exceptions by attempting to execute recovery commands for the given exception type.
+     * 
+     * @param exception The exception that was thrown during command execution.
+     */
+    private void handleException(CouldNotExecuteCommandException exception) {
+        List<Command> recoveryCommands = exceptionCommandsMap.get(exception.getClass());
+        
+        if (recoveryCommands != null && !recoveryCommands.isEmpty()) {
+            // Execute recovery commands if they exist for this exception
+            for (Command recoveryCommand : recoveryCommands) {
+                try {
+                    recoveryCommand.execute();
+                } catch (CouldNotExecuteCommandException e) {
+                    // Log recovery failure (could be extended with a better logging mechanism)
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // If no recovery commands are found, handle accordingly
+            System.out.println("No recovery commands available for exception: " + exception.getClass().getName());
+        }
+    }
 }

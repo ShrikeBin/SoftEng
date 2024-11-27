@@ -34,9 +34,9 @@ public class ThirdPartyDoor {
 		OPEN, CLOSED;
 	}
 	public static final String DEFAULT_CODE ="AAAAHHHH";
-	private String code = DEFAULT_CODE;
-	private LockStatus lockStatus = LockStatus.LOCKED;
-	private DoorState doorState = DoorState.CLOSED;
+	protected String code = DEFAULT_CODE;
+	protected LockStatus lockStatus = LockStatus.LOCKED;
+	protected DoorState doorState = DoorState.CLOSED;
 
 	
 	/**
