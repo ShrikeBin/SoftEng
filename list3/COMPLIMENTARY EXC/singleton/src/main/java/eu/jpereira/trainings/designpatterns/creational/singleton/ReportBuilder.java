@@ -40,7 +40,7 @@ public class ReportBuilder {
 		configuredSites.add("http://stackoverflow.com");
 	}
 
-	// rwlodarczyk: private constructor to prevent instantiation
+	// private constructor to prevent instantiation
 	private ReportBuilder() {
 		initialize();
 	}
